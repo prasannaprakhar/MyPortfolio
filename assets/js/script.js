@@ -159,7 +159,7 @@ document
 
         // Scroll to the top of the page
         window.scrollTo({
-          top: 0,
+          top: 80,
           behavior: "smooth",
         });
       })
@@ -176,7 +176,7 @@ document
 
         // Scroll to the top of the page
         window.scrollTo({
-          top: 0,
+          top: 50,
           behavior: "smooth",
         });
       });
