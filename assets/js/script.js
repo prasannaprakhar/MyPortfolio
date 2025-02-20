@@ -112,3 +112,11 @@ downloadCVBtn.addEventListener("click", function () {
   );
   newWindow.focus();
 });
+
+// Project details
+document.querySelectorAll(".project-card").forEach((card) => {
+  card.addEventListener("click", function (event) {
+    event.preventDefault();
+    window.location.href = this.getAttribute("href");
+  });
+});
