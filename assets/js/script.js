@@ -122,7 +122,6 @@ document.querySelectorAll(".project-card").forEach((card) => {
 });
 
 // Contact form submission
-
 document
   .getElementById("contactForm")
   .addEventListener("submit", function (event) {
@@ -130,7 +129,6 @@ document
 
     // Gather form data
     const formData = new FormData(this);
-    console.log(formData.keys());
     const data = {
       name: formData.get("name"),
       email: formData.get("email"),
@@ -141,16 +139,45 @@ document
     // Send the data to the API
     fetch("https://pmcxblf8nc.execute-api.eu-north-1.amazonaws.com/dev", {
       method: "POST",
-      body: JSON.stringify(data), // Convert data to JSON string,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data), // Convert data to JSON string
     })
       .then((response) => response.json())
       .then((result) => {
         console.log("Success:", result);
         // Handle success (e.g., show a success message)
         document.getElementById("contactForm").reset(); // Clear the form
+        const successBanner = document.getElementById("successBanner");
+        successBanner.style.display = "block"; // Show the success banner
+
+        // Hide the success banner after 3 seconds
+        setTimeout(() => {
+          successBanner.style.display = "none";
+        }, 7000);
+
+        // Scroll to the top of the page
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
       })
       .catch((error) => {
         console.error("Error:", error);
         // Handle error (e.g., show an error message)
+        const failureBanner = document.getElementById("failureBanner");
+        failureBanner.style.display = "block"; // Show the failure banner
+
+        // Hide the failure banner after 3 seconds
+        setTimeout(() => {
+          failureBanner.style.display = "none";
+        }, 7000);
+
+        // Scroll to the top of the page
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
       });
   });

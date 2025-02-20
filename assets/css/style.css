@@ -1414,3 +1414,27 @@ textarea.input-field {
 
 
 }
+
+.success-banner {
+  background-color: #4caf50; /* Green background */
+  color: white; /* White text */
+  display: none; /* Initially hidden */
+  padding: 15px;
+  text-align: center;
+  border-radius: 5px;
+  margin-top: 20px;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.failure-banner {
+  background-color: #f44336; /* Red background */
+  color: white; /* White text */
+  display: none; /* Initially hidden */
+  padding: 15px;
+  text-align: center;
+  border-radius: 5px;
+  margin-top: 20px;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
