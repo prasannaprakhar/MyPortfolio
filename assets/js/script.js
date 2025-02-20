@@ -120,3 +120,37 @@ document.querySelectorAll(".project-card").forEach((card) => {
     window.location.href = this.getAttribute("href");
   });
 });
+
+// Contact form submission
+
+document
+  .getElementById("contactForm")
+  .addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    // Gather form data
+    const formData = new FormData(this);
+    console.log(formData.keys());
+    const data = {
+      name: formData.get("name"),
+      email: formData.get("email"),
+      phone: formData.get("phone"),
+      message: formData.get("message"),
+    };
+
+    // Send the data to the API
+    fetch("https://pmcxblf8nc.execute-api.eu-north-1.amazonaws.com/dev", {
+      method: "POST",
+      body: JSON.stringify(data), // Convert data to JSON string,
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        console.log("Success:", result);
+        // Handle success (e.g., show a success message)
+        document.getElementById("contactForm").reset(); // Clear the form
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        // Handle error (e.g., show an error message)
+      });
+  });
