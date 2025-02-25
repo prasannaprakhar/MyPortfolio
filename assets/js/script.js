@@ -136,22 +136,30 @@ document
       message: formData.get("message"),
     };
 
+    // https://pmcxblf8nc.execute-api.eu-north-1.amazonaws.com/dev Api Gateway URL then Lambda function
+    // http://notificationLB-1788303549.eu-north-1.elb.amazonaws.com for ecs with loadbalancer
     // Send the data to the API
-    fetch("https://pmcxblf8nc.execute-api.eu-north-1.amazonaws.com/dev", {
+    fetch("http://notificationLB-1788303549.eu-north-1.elb.amazonaws.com/send-notification", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data), // Convert data to JSON string
     })
-      .then((response) => response.json())
+      .then((response) => response)
       .then((result) => {
         console.log("Success:", result);
         // Handle success (e.g., show a success message)
-        document.getElementById("contactForm").reset(); // Clear the form
-        const successBanner = document.getElementById("successBanner");
-        successBanner.style.display = "block"; // Show the success banner
+        if(result.ok){
+          document.getElementById("contactForm").reset(); // Clear the form
+          const successBanner = document.getElementById("successBanner");
+          successBanner.style.display = "block"; // Show the success banner
+        }else{
+            // Handle error (e.g., show an error message)
+          const failureBanner = document.getElementById("failureBanner");
+          failureBanner.style.display = "block"; // Show the failure banner
 
+        }
         // Hide the success banner after 3 seconds
         setTimeout(() => {
           successBanner.style.display = "none";
@@ -159,25 +167,11 @@ document
 
         // Scroll to the top of the page
         window.scrollTo({
-          top: 80,
+          top: 300,
           behavior: "smooth",
         });
       })
       .catch((error) => {
         console.error("Error:", error);
-        // Handle error (e.g., show an error message)
-        const failureBanner = document.getElementById("failureBanner");
-        failureBanner.style.display = "block"; // Show the failure banner
-
-        // Hide the failure banner after 3 seconds
-        setTimeout(() => {
-          failureBanner.style.display = "none";
-        }, 7000);
-
-        // Scroll to the top of the page
-        window.scrollTo({
-          top: 50,
-          behavior: "smooth",
-        });
       });
   });
