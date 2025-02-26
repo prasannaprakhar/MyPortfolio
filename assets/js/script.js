@@ -137,9 +137,9 @@ document
     };
 
     // https://pmcxblf8nc.execute-api.eu-north-1.amazonaws.com/dev Api Gateway URL then Lambda function
-    // http://notificationLB-1788303549.eu-north-1.elb.amazonaws.com for ecs with loadbalancer
+    // http://notificationLB-1788303549.eu-north-1.elb.amazonaws.com/send-notification for ecs with load balancer
     // Send the data to the API
-    fetch("http://notificationLB-1788303549.eu-north-1.elb.amazonaws.com/send-notification", {
+    fetch("https://pmcxblf8nc.execute-api.eu-north-1.amazonaws.com/dev", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -150,15 +150,14 @@ document
       .then((result) => {
         console.log("Success:", result);
         // Handle success (e.g., show a success message)
-        if(result.ok){
+        if (result.ok) {
           document.getElementById("contactForm").reset(); // Clear the form
           const successBanner = document.getElementById("successBanner");
           successBanner.style.display = "block"; // Show the success banner
-        }else{
-            // Handle error (e.g., show an error message)
+        } else {
+          // Handle error (e.g., show an error message)
           const failureBanner = document.getElementById("failureBanner");
           failureBanner.style.display = "block"; // Show the failure banner
-
         }
         // Hide the success banner after 3 seconds
         setTimeout(() => {
